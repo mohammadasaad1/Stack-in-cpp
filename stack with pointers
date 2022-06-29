@@ -1,0 +1,85 @@
+#include <iostream>
+using namespace std ;
+template <class generic>
+class stack{
+private:
+    struct node{
+        generic item ;
+        node *pointer ;
+    };
+    node *top , *current ;
+public:
+
+    stack()
+    {
+        top = NULL ;
+    }
+    void push(generic item)
+    {
+        node *itemPtr = new node ;
+        if (itemPtr == NULL)
+            cout << "Stack push can not allocate memory\n" ;
+        else
+        {
+            itemPtr -> item = item ;
+            itemPtr -> pointer = top ;
+            top = itemPtr ;
+        }
+    }
+    bool isEmpty(){
+        return top == NULL ;
+    }
+    void pop()
+    {
+        if (isEmpty())
+            cout << "stack is underflow\n" ;
+        else
+        {
+            node *temp = top ;
+            top = temp -> pointer ;
+            temp -> pointer = NULL ;
+            delete temp ;
+        }
+    }
+    void pop(generic &item)
+    {
+        if (isEmpty())
+            cout << "stack is underflow\n" ;
+        else
+        {   item = top -> item ;
+            node *temp = top ;
+            top = temp -> pointer ;
+            temp -> pointer = NULL ;
+            delete temp ;
+        }
+    }
+    void getTop(generic &item)
+    {
+        if (isEmpty())
+            cout << "stack is underflow\n" ;
+        else
+        {
+            item = top -> item ;
+        }
+    }
+    void display()
+    {   current = top ;
+        while (current != NULL)
+        {
+
+            cout << (current -> item) ;
+            current = (current -> pointer) ;
+        }
+    }
+};
+int main()
+{
+
+    stack <int> s ;
+    s.push(1000) ;
+    s.pop() ;
+s.push(50) ;
+s.display() ;
+    return 0 ;
+
+}
